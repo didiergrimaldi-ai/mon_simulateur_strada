@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulateur de voyage à vélo — Collserola</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <!-- Photo équipage : coin supérieur gauche, fixe, cliquable -->
+    <button id="crewBadge" class="crew-badge" title="Cliquer pour voir l’équipage" aria-label="Ouvrir la fiche équipage">
+      <img src="./velo.png" alt="Équipe des cyclistes" />
+    </button>
+
+    <!-- HUD : coin supérieur gauche -->
+    <div id="hud" class="hud">
+      <div class="hud-title">MISSION COLLSEROLA</div>
+      <div class="hud-row"><span class="hud-label">MET</span><span id="hudMet" class="hud-value">T+ 000:00:00:00</span></div>
+      <div class="hud-row"><span class="hud-label">DIST</span><span id="hudDist" class="hud-value">0,000 km</span></div>
+      <div class="hud-row"><span class="hud-label">RESTE</span><span id="hudRemain" class="hud-value">0,000 km</span></div>
+      <div class="hud-row"><span class="hud-label">VITESSE</span><span id="hudSpeed" class="hud-value">0,000 km/h</span></div>
+      <div class="hud-row"><span class="hud-label">ALTI</span><span id="hudEle" class="hud-value">0 m</span></div>
+      <div class="hud-row"><span class="hud-label">PHASE</span><span id="hudPhase" class="hud-value">—</span></div>
+      <div class="hud-row"><span class="hud-label">FC</span><span id="hudHr" class="hud-value">— bpm</span></div>
+    </div>
+
+    <!-- Boutons caméra : coin supérieur droit -->
+    <div id="cameraControls" class="camera-controls">
+      <button class="cam-btn active" data-cam="map" title="Vue carte">🌍</button>
+      <button class="cam-btn" data-cam="follow" title="Suivi cycliste">🔭</button>
+      <button class="cam-btn" data-cam="relief" title="Vue relief">🌅</button>
+    </div>
+
+    <!-- Panneau d’événements : sidebar droite repliable -->
+    <aside id="eventsPanel" class="events-panel">
+      <div class="events-header">
+        <span>ÉVÉNEMENTS DE MISSION</span>
+        <button id="eventsToggle" title="Replier">▶</button>
+      </div>
+      <ul id="eventsList" class="events-list"></ul>
+      <div class="events-subheader">ÉQUIPAGE</div>
+      <ul id="crewList" class="crew-list"></ul>
+    </aside>
+    <button id="eventsReopen" class="events-reopen" title="Afficher les événements">ÉVÉNEMENTS ◀</button>
+
+    <!-- Modale équipage (apparaît au clic sur le vélo) -->
+    <div id="crewModal" class="crew-modal hidden" role="dialog" aria-modal="true">
+      <div class="crew-modal-inner">
+        <div class="crew-modal-header">
+          <span>ÉQUIPAGE À BORD</span>
+          <button id="crewModalClose" title="Fermer">✕</button>
+        </div>
+        <ul id="crewModalList" class="crew-modal-list"></ul>
+        <p class="crew-modal-hint">Clique sur le 🚴 pour rouvrir cette fiche.</p>
+      </div>
+    </div>
+
+    <!-- Timeline : barre inférieure -->
+    <div id="timelineBar" class="timeline-bar">
+      <div id="timelineMarkers" class="timeline-markers"></div>
+      <div class="timeline-track">
+        <input type="range" id="timelineSlider" min="0" max="19980" value="0" step="1" />
+      </div>
+      <div class="timeline-controls">
+        <button id="btnRewind" title="Reculer 1 min">⏪</button>
+        <button id="btnPlayPause" title="Lecture / pause">▶️</button>
+        <button id="btnForward" title="Avancer 1 min">⏩</button>
+        <select id="speedSelect" title="Vitesse de lecture">
+          <option value="1">1×</option>
+          <option value="10">10×</option>
+          <option value="100" selected>100×</option>
+          <option value="1000">1000×</option>
+        </select>
+        <span id="timelineMet" class="timeline-met">T+ 000:00:00:00</span>
+      </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

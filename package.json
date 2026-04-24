@@ -1,0 +1,23 @@
+{
+  "name": "mon-simulateur-velo",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Simulateur 2D d'un voyage à vélo autour de Barcelone / Collserola, inspiré d'un tracker de mission Artemis II",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "fast-xml-parser": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="simulateur-velo" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Sant Andreu - Tibidabo - Vallvidrera - Coll de l'Erola</name>
+    <trkseg>
+      <trkpt lat="41.4360" lon="2.1890"><ele>20</ele></trkpt>
+      <trkpt lat="41.4355" lon="2.1850"><ele>25</ele></trkpt>
+      <trkpt lat="41.4350" lon="2.1800"><ele>35</ele></trkpt>
+      <trkpt lat="41.4340" lon="2.1750"><ele>50</ele></trkpt>
+      <trkpt lat="41.4330" lon="2.1700"><ele>70</ele></trkpt>
+      <trkpt lat="41.4320" lon="2.1660"><ele>95</ele></trkpt>
+      <trkpt lat="41.4310" lon="2.1620"><ele>125</ele></trkpt>
+      <trkpt lat="41.4300" lon="2.1580"><ele>160</ele></trkpt>
+      <trkpt lat="41.4285" lon="2.1540"><ele>200</ele></trkpt>
+      <trkpt lat="41.4270" lon="2.1500"><ele>245</ele></trkpt>
+      <trkpt lat="41.4250" lon="2.1460"><ele>295</ele></trkpt>
+      <trkpt lat="41.4240" lon="2.1420"><ele>345</ele></trkpt>
+      <trkpt lat="41.4230" lon="2.1380"><ele>395</ele></trkpt>
+      <trkpt lat="41.4220" lon="2.1340"><ele>445</ele></trkpt>
+      <trkpt lat="41.4215" lon="2.1300"><ele>485</ele></trkpt>
+      <trkpt lat="41.4218" lon="2.1260"><ele>512</ele></trkpt>
+      <trkpt lat="41.4225" lon="2.1220"><ele>498</ele></trkpt>
+      <trkpt lat="41.4235" lon="2.1180"><ele>465</ele></trkpt>
+      <trkpt lat="41.4245" lon="2.1150"><ele>428</ele></trkpt>
+      <trkpt lat="41.4250" lon="2.1120"><ele>395</ele></trkpt>
+      <trkpt lat="41.4255" lon="2.1080"><ele>360</ele></trkpt>
+      <trkpt lat="41.4265" lon="2.1050"><ele>330</ele></trkpt>
+      <trkpt lat="41.4280" lon="2.1030"><ele>305</ele></trkpt>
+      <trkpt lat="41.4300" lon="2.1020"><ele>280</ele></trkpt>
+      <trkpt lat="41.4320" lon="2.1040"><ele>240</ele></trkpt>
+      <trkpt lat="41.4340" lon="2.1080"><ele>200</ele></trkpt>
+      <trkpt lat="41.4355" lon="2.1130"><ele>165</ele></trkpt>
+      <trkpt lat="41.4365" lon="2.1200"><ele>130</ele></trkpt>
+      <trkpt lat="41.4372" lon="2.1280"><ele>100</ele></trkpt>
+      <trkpt lat="41.4375" lon="2.1370"><ele>75</ele></trkpt>
+      <trkpt lat="41.4375" lon="2.1460"><ele>55</ele></trkpt>
+      <trkpt lat="41.4372" lon="2.1560"><ele>42</ele></trkpt>
+      <trkpt lat="41.4368" lon="2.1660"><ele>32</ele></trkpt>
+      <trkpt lat="41.4365" lon="2.1760"><ele>25</ele></trkpt>
+      <trkpt lat="41.4362" lon="2.1830"><ele>22</ele></trkpt>
+      <trkpt lat="41.4360" lon="2.1890"><ele>20</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
