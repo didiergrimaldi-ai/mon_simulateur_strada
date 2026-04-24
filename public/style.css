@@ -529,14 +529,14 @@ html, body {
   .camera-controls { top: auto; bottom: 200px; right: 8px; padding: 4px; gap: 4px; }
   .stats-panel {
     position: absolute;
-    top: auto;
+    top: 148px;
+    bottom: auto;
     right: 8px;
     left: 8px;
     width: auto;
     margin-top: 0;
-    bottom: 370px;
     padding: 10px;
-    max-height: 140px;
+    max-height: 200px;
     overflow-y: auto;
   }
   .events-panel {
