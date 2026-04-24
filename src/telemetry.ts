@@ -18,6 +18,8 @@ export interface TelemetrySample {
   lat: number;
   lon: number;
   speedKmh: number;
+  avgSpeedKmh: number;
+  elevationGain: number;
   gradePct: number;
   heartRate: number;
   phase: string;
@@ -56,6 +58,8 @@ export function buildTelemetry(track: TrackPoint[]): TelemetrySample[] {
     lat: track[0].lat,
     lon: track[0].lon,
     speedKmh: 0,
+    avgSpeedKmh: 0,
+    elevationGain: 0,
     gradePct: 0,
     heartRate: 92,
     phase: 'MISE EN SELLE',
@@ -63,11 +67,13 @@ export function buildTelemetry(track: TrackPoint[]): TelemetrySample[] {
   };
 
   let tNat = 0;
+  let gain = 0;
   for (let i = 1; i < track.length; i++) {
     const a = track[i - 1];
     const b = track[i];
     const dx = b.distance - a.distance;
     const dz = b.ele - a.ele;
+    if (dz > 0) gain += dz;
     const grade = dx > 0 ? (dz / dx) * 100 : 0;
     const kmh = speedForGrade(grade);
     const dt = dx / (kmh / 3.6);
@@ -80,6 +86,8 @@ export function buildTelemetry(track: TrackPoint[]): TelemetrySample[] {
       lat: b.lat,
       lon: b.lon,
       speedKmh: kmh,
+      avgSpeedKmh: 0,
+      elevationGain: gain,
       gradePct: grade,
       heartRate: Math.max(85, Math.min(185, Math.round(110 + Math.max(0, grade) * 6 - Math.max(0, -grade) * 2))),
       phase: phaseFor(b.distance / total, grade),
@@ -92,6 +100,7 @@ export function buildTelemetry(track: TrackPoint[]): TelemetrySample[] {
   for (let i = 0; i < raw.length; i++) {
     raw[i].met *= scale;
     raw[i].speedKmh = raw[i].speedKmh / scale;
+    raw[i].avgSpeedKmh = raw[i].met > 0 ? (raw[i].distance / 1000) / (raw[i].met / 3600) : 0;
   }
   return raw;
 }
@@ -119,6 +128,8 @@ export function telemetryAt(series: TelemetrySample[], met: number): TelemetrySa
     lat: mix(a.lat, b.lat),
     lon: mix(a.lon, b.lon),
     speedKmh: mix(a.speedKmh, b.speedKmh),
+    avgSpeedKmh: mix(a.avgSpeedKmh, b.avgSpeedKmh),
+    elevationGain: mix(a.elevationGain, b.elevationGain),
     gradePct: mix(a.gradePct, b.gradePct),
     heartRate: Math.round(mix(a.heartRate, b.heartRate)),
     phase: u < 0.5 ? a.phase : b.phase,

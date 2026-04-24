@@ -7,6 +7,7 @@ import { loadGpxFile } from './gpx.js';
 import { interpolateTrack } from './orbital-math.js';
 import { buildTelemetry, telemetryAt } from './telemetry.js';
 import { buildEvents } from './events.js';
+import { buildSegments } from './segments.js';
 import { CREW } from './crew.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +22,9 @@ export async function createApp() {
   const samples = interpolateTrack(track.points, 500);
   const telemetry = buildTelemetry(samples);
   const events = buildEvents(track, telemetry);
+  const segments = buildSegments(telemetry);
   const totalMet = telemetry[telemetry.length - 1].met;
+  const totalGain = telemetry[telemetry.length - 1].elevationGain;
 
   const app = express();
   app.use(express.json());
@@ -32,6 +35,7 @@ export async function createApp() {
       name: track.name,
       totalDistance: track.totalDistance,
       totalDurationSec: totalMet,
+      totalElevationGain: totalGain,
       minEle: track.minEle,
       maxEle: track.maxEle,
       samples: telemetry.map((t) => ({
@@ -43,6 +47,8 @@ export async function createApp() {
       }))
     });
   });
+
+  app.get('/api/segments', (_req: Request, res: Response) => res.json(segments));
 
   app.get('/api/events', (_req: Request, res: Response) => res.json(events));
 

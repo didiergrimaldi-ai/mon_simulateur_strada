@@ -3,49 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulateur de voyage à vélo — Collserola</title>
+    <title>Simulateur vélo — Collserola</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div id="stage"></div>
 
-    <!-- Photo équipage : coin supérieur gauche, fixe, cliquable -->
-    <button id="crewBadge" class="crew-badge" title="Cliquer pour voir l’équipage" aria-label="Ouvrir la fiche équipage">
+    <!-- Badge équipage : photo fixe haut gauche -->
+    <button id="crewBadge" class="crew-badge" title="Cliquer pour voir l’équipage">
       <img src="./velo.png" alt="Équipe des cyclistes" />
+      <span class="crew-badge-label">ÉQUIPAGE</span>
     </button>
 
-    <!-- HUD : coin supérieur gauche -->
+    <!-- HUD vert mission -->
     <div id="hud" class="hud">
-      <div class="hud-title">MISSION COLLSEROLA</div>
+      <div class="hud-title">● MISSION COLLSEROLA</div>
       <div class="hud-row"><span class="hud-label">MET</span><span id="hudMet" class="hud-value">T+ 000:00:00:00</span></div>
-      <div class="hud-row"><span class="hud-label">DIST</span><span id="hudDist" class="hud-value">0,000 km</span></div>
-      <div class="hud-row"><span class="hud-label">RESTE</span><span id="hudRemain" class="hud-value">0,000 km</span></div>
-      <div class="hud-row"><span class="hud-label">VITESSE</span><span id="hudSpeed" class="hud-value">0,000 km/h</span></div>
-      <div class="hud-row"><span class="hud-label">ALTI</span><span id="hudEle" class="hud-value">0 m</span></div>
       <div class="hud-row"><span class="hud-label">PHASE</span><span id="hudPhase" class="hud-value">—</span></div>
+      <div class="hud-row"><span class="hud-label">SEGMENT</span><span id="hudSegment" class="hud-value">—</span></div>
       <div class="hud-row"><span class="hud-label">FC</span><span id="hudHr" class="hud-value">— bpm</span></div>
     </div>
 
-    <!-- Boutons caméra : coin supérieur droit -->
+    <!-- Boutons caméra premium -->
     <div id="cameraControls" class="camera-controls">
-      <button class="cam-btn active" data-cam="map" title="Vue carte">🌍</button>
-      <button class="cam-btn" data-cam="follow" title="Suivi cycliste">🔭</button>
-      <button class="cam-btn" data-cam="relief" title="Vue relief">🌅</button>
+      <button class="cam-btn active" data-cam="map" title="Vue carte">
+        <span class="cam-ico">🗺️</span><span class="cam-lbl">Carte</span>
+      </button>
+      <button class="cam-btn" data-cam="follow" title="Suivi cycliste">
+        <span class="cam-ico">🎯</span><span class="cam-lbl">Suivi</span>
+      </button>
+      <button class="cam-btn" data-cam="relief" title="Vue relief">
+        <span class="cam-ico">⛰️</span><span class="cam-lbl">Relief</span>
+      </button>
     </div>
 
-    <!-- Panneau d’événements : sidebar droite repliable -->
+    <!-- Panneau stats sportives -->
+    <aside id="statsPanel" class="stats-panel">
+      <div class="stats-header">STATISTIQUES</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-label">Distance parcourue</div>
+          <div class="stat-value orange" id="statDone">0,00 km</div>
+          <div class="stat-bar"><div id="statBar" class="stat-bar-fill"></div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Reste</div>
+          <div class="stat-value" id="statRemain">0,00 km</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Distance totale</div>
+          <div class="stat-value dim" id="statTotal">0,00 km</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Vitesse actuelle</div>
+          <div class="stat-value big" id="statSpeed">0,0 km/h</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Vitesse moyenne</div>
+          <div class="stat-value" id="statAvg">0,0 km/h</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Altitude</div>
+          <div class="stat-value" id="statEle">0 m</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Dénivelé positif</div>
+          <div class="stat-value" id="statGain">0 m</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Pente actuelle</div>
+          <div class="stat-value" id="statGrade">0 %</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Panneau événements / segments -->
     <aside id="eventsPanel" class="events-panel">
       <div class="events-header">
-        <span>ÉVÉNEMENTS DE MISSION</span>
+        <span>PARCOURS</span>
         <button id="eventsToggle" title="Replier">▶</button>
       </div>
-      <ul id="eventsList" class="events-list"></ul>
-      <div class="events-subheader">ÉQUIPAGE</div>
-      <ul id="crewList" class="crew-list"></ul>
+      <div class="tabs">
+        <button class="tab active" data-tab="segments">Segments</button>
+        <button class="tab" data-tab="events">Événements</button>
+      </div>
+      <ul id="segmentsList" class="segments-list"></ul>
+      <ul id="eventsList" class="events-list" hidden></ul>
     </aside>
-    <button id="eventsReopen" class="events-reopen" title="Afficher les événements">ÉVÉNEMENTS ◀</button>
+    <button id="eventsReopen" class="events-reopen" title="Afficher le parcours">PARCOURS ◀</button>
 
-    <!-- Modale équipage (apparaît au clic sur le vélo) -->
+    <!-- Modale équipage -->
     <div id="crewModal" class="crew-modal hidden" role="dialog" aria-modal="true">
       <div class="crew-modal-inner">
         <div class="crew-modal-header">
@@ -53,27 +100,36 @@
           <button id="crewModalClose" title="Fermer">✕</button>
         </div>
         <ul id="crewModalList" class="crew-modal-list"></ul>
-        <p class="crew-modal-hint">Clique sur le 🚴 pour rouvrir cette fiche.</p>
       </div>
     </div>
 
-    <!-- Timeline : barre inférieure -->
-    <div id="timelineBar" class="timeline-bar">
-      <div id="timelineMarkers" class="timeline-markers"></div>
-      <div class="timeline-track">
-        <input type="range" id="timelineSlider" min="0" max="19980" value="0" step="1" />
+    <!-- Profil altimétrique + timeline -->
+    <div class="bottom-dock">
+      <div id="elevationProfile" class="elevation-profile">
+        <canvas id="elevationCanvas"></canvas>
+        <div id="elevationCursor" class="elevation-cursor"></div>
+        <div class="elevation-labels">
+          <span id="eleMin">0 m</span>
+          <span id="eleMax">0 m</span>
+        </div>
       </div>
-      <div class="timeline-controls">
-        <button id="btnRewind" title="Reculer 1 min">⏪</button>
-        <button id="btnPlayPause" title="Lecture / pause">▶️</button>
-        <button id="btnForward" title="Avancer 1 min">⏩</button>
-        <select id="speedSelect" title="Vitesse de lecture">
-          <option value="1">1×</option>
-          <option value="10">10×</option>
-          <option value="100" selected>100×</option>
-          <option value="1000">1000×</option>
-        </select>
-        <span id="timelineMet" class="timeline-met">T+ 000:00:00:00</span>
+      <div id="timelineBar" class="timeline-bar">
+        <div id="timelineMarkers" class="timeline-markers"></div>
+        <div class="timeline-track">
+          <input type="range" id="timelineSlider" min="0" max="19980" value="0" step="1" />
+        </div>
+        <div class="timeline-controls">
+          <button id="btnRewind" title="Reculer 1 min">⏪</button>
+          <button id="btnPlayPause" class="primary" title="Lecture / pause">▶️ Lecture</button>
+          <button id="btnForward" title="Avancer 1 min">⏩</button>
+          <select id="speedSelect" title="Vitesse de lecture">
+            <option value="1">1×</option>
+            <option value="10">10×</option>
+            <option value="100" selected>100×</option>
+            <option value="1000">1000×</option>
+          </select>
+          <span id="timelineMet" class="timeline-met">T+ 000:00:00:00</span>
+        </div>
       </div>
     </div>
 
