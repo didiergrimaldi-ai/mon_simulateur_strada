@@ -12,16 +12,6 @@ const hudPhase = document.getElementById('hudPhase');
 const hudSegment = document.getElementById('hudSegment');
 const hudHr = document.getElementById('hudHr');
 
-const statDone = document.getElementById('statDone');
-const statRemain = document.getElementById('statRemain');
-const statTotal = document.getElementById('statTotal');
-const statSpeed = document.getElementById('statSpeed');
-const statAvg = document.getElementById('statAvg');
-const statEle = document.getElementById('statEle');
-const statGain = document.getElementById('statGain');
-const statGrade = document.getElementById('statGrade');
-const statBar = document.getElementById('statBar');
-
 const eventsPanel = document.getElementById('eventsPanel');
 const eventsToggle = document.getElementById('eventsToggle');
 const eventsReopen = document.getElementById('eventsReopen');
@@ -376,19 +366,6 @@ async function refreshAt(met) {
   hudPhase.textContent = tele.phase;
   hudHr.textContent = `${tele.heartRate} bpm`;
   hudSegment.textContent = currentSegmentLabel(tele.met);
-
-  // Stats
-  statDone.textContent = `${frNum(tele.distance / 1000, 2)} km`;
-  statRemain.textContent = `${frNum(tele.distanceRemaining / 1000, 2)} km`;
-  statTotal.textContent = `${frNum(state.totalDistance / 1000, 2)} km`;
-  statSpeed.textContent = `${frNum(tele.speedKmh, 1)} km/h`;
-  statAvg.textContent = `${frNum(tele.avgSpeedKmh, 1)} km/h`;
-  statEle.textContent = `${Math.round(tele.ele)} m`;
-  statGain.textContent = `+${Math.round(tele.elevationGain)} m`;
-  const grade = tele.gradePct;
-  statGrade.textContent = `${grade >= 0 ? '+' : ''}${grade.toFixed(1).replace('.', ',')} %`;
-  statGrade.style.color = grade > 4 ? '#f87171' : grade < -4 ? '#60a5fa' : 'var(--text)';
-  statBar.style.width = `${Math.min(100, tele.progress * 100)}%`;
 
   // Carte : position cycliste + portion parcourue
   const idx = Math.max(0, Math.min(state.screenPts.length - 1, Math.round(tele.progress * (state.screenPts.length - 1))));

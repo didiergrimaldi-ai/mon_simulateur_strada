@@ -138,72 +138,14 @@ html, body {
 .cam-ico { font-size: 16px; }
 .cam-lbl { font-size: 11px; }
 
-/* ============ Panneau stats sportives ============ */
-.stats-panel {
+/* ============ Panneau parcours (segments + événements) ============ */
+.events-panel {
   position: absolute;
   top: 16px;
   right: 16px;
   margin-top: 58px;
-  width: 260px;
-  z-index: 10;
-  padding: 14px;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-.stats-header {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--orange-soft);
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-  font-family: 'Consolas', monospace;
-  font-weight: 700;
-}
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.stat { padding: 8px 10px; background: rgba(10, 20, 40, 0.5); border-radius: 6px; }
-.stat-label {
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  margin-bottom: 3px;
-}
-.stat-value {
-  font-size: 16px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--text);
-}
-.stat-value.big { font-size: 20px; color: var(--orange-soft); }
-.stat-value.orange { color: var(--orange-soft); }
-.stat-value.dim { color: var(--text-dim); font-size: 14px; }
-.stat-bar {
-  margin-top: 6px;
-  height: 4px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.stat-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--orange), var(--orange-soft));
-  box-shadow: 0 0 8px rgba(252, 82, 0, 0.6);
-  transition: width 0.2s;
-}
-
-/* ============ Panneau parcours (segments + événements) ============ */
-.events-panel {
-  position: absolute;
-  right: 16px;
-  bottom: 190px;
   width: 300px;
-  max-height: 38vh;
+  max-height: calc(100vh - 240px);
   overflow-y: auto;
   z-index: 10;
   padding: 12px 14px;
@@ -296,7 +238,8 @@ html, body {
   display: none;
   position: absolute;
   right: 0;
-  bottom: 240px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10;
   writing-mode: vertical-rl;
   padding: 10px 6px;
@@ -499,18 +442,12 @@ html, body {
 
 /* ============ Responsive ============ */
 @media (max-width: 1100px) {
-  .stats-panel { width: 220px; }
   .events-panel { width: 260px; }
   .hud { min-width: 220px; font-size: 11px; }
 }
 
 @media (max-width: 860px) {
-  .stats-panel { width: 200px; margin-top: 50px; padding: 10px; }
-  .stats-grid { gap: 6px; }
-  .stat { padding: 6px 8px; }
-  .stat-value { font-size: 14px; }
-  .stat-value.big { font-size: 17px; }
-  .events-panel { width: 240px; bottom: 200px; }
+  .events-panel { width: 240px; margin-top: 50px; }
   .cam-btn .cam-lbl { display: none; }
   .cam-btn { padding: 8px; }
 }
@@ -527,7 +464,7 @@ html, body {
     font-size: 10px;
   }
   .camera-controls { top: auto; bottom: 200px; right: 8px; padding: 4px; gap: 4px; }
-  .stats-panel {
+  .events-panel {
     position: absolute;
     top: 148px;
     bottom: auto;
@@ -536,20 +473,13 @@ html, body {
     width: auto;
     margin-top: 0;
     padding: 10px;
-    max-height: 200px;
+    max-height: calc(100vh - 380px);
     overflow-y: auto;
+    transform: none;
   }
-  .events-panel {
-    left: 8px;
-    right: 8px;
-    width: auto;
-    bottom: 220px;
-    max-height: 28vh;
-    transform: translateX(calc(100% + 24px));
-  }
-  .events-panel.open { transform: translateX(0); }
-  .events-reopen { display: block; bottom: 260px; }
-  .events-panel.open ~ .events-reopen { display: none; }
+  .events-panel.collapsed { transform: translateX(calc(100% + 24px)); }
+  .events-reopen { display: none; top: 160px; right: 0; transform: none; }
+  .events-panel.collapsed ~ .events-reopen { display: block; }
   .bottom-dock { left: 8px; right: 8px; bottom: 8px; }
   .elevation-profile { height: 70px; }
   .timeline-controls { gap: 6px; }
